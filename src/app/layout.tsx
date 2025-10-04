@@ -13,6 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <nav className="small" style={{display:'flex',gap:12}}>
               <a href="/">Dashboard</a>
               <a href="/assets">Actifs</a>
+              <a href="/offseason">Hors saison</a>
               <a href="/scan">Scan</a>
             </nav>
           </header>

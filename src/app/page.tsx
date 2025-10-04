@@ -9,6 +9,7 @@ export default function Page() {
       </p>
       <ul style={{paddingLeft:20}}>
         <li><a style={{textDecoration:'underline'}} href="/assets">Voir les actifs</a></li>
+        <li><a style={{textDecoration:'underline'}} href="/offseason">Planifier l'hors saison</a></li>
         <li><a style={{textDecoration:'underline'}} href="/scan?uid=A7X3Q9">Démo scan (uid=A7X3Q9)</a></li>
       </ul>
     </div>

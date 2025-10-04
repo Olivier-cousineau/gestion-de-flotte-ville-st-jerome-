@@ -27,6 +27,7 @@ model Asset {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   inspections  Inspection[]
+  offSeasons   OffSeasonRecord[]
 }
 
 model Inspection {
@@ -34,9 +35,24 @@ model Inspection {
   assetId    Int
   asset      Asset    @relation(fields: [assetId], references: [id])
   meterValue Int?
-  checklist  Json
-  photos     Json?
+  checklist  String
+  photos     String?
   status     String
   createdBy  String
   createdAt  DateTime @default(now())
+}
+
+model OffSeasonRecord {
+  id          Int       @id @default(autoincrement())
+  assetId     Int
+  asset       Asset     @relation(fields: [assetId], references: [id])
+  season      String
+  startDate   DateTime
+  endDate     DateTime?
+  hoursWorked Float?
+  cost        Float?
+  status      String    @default("planifié")
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

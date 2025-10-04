@@ -39,6 +39,39 @@ async function main() {
     ]
   });
 
+  const truck = await prisma.asset.findUnique({ where: { uid: "A7X3Q9" } });
+  const excavator = await prisma.asset.findUnique({ where: { uid: "K2M9P1" } });
+
+  const existingOffSeason = await prisma.offSeasonRecord.count();
+  if (existingOffSeason === 0) {
+    if (truck) {
+      await prisma.offSeasonRecord.create({
+        data: {
+          assetId: truck.id,
+          season: "2023-2024",
+          startDate: new Date("2023-11-01"),
+          endDate: new Date("2024-03-15"),
+          hoursWorked: 48,
+          cost: 1850,
+          status: "terminé",
+          notes: "Inspection complète, remplacement d'huile et dresse de pneus.",
+        },
+      });
+    }
+    if (excavator) {
+      await prisma.offSeasonRecord.create({
+        data: {
+          assetId: excavator.id,
+          season: "2024-2025",
+          startDate: new Date("2024-10-15"),
+          hoursWorked: 12,
+          status: "planifié",
+          notes: "Prévoir commande des chenilles et graissage complet.",
+        },
+      });
+    }
+  }
+
   console.log("Seed OK");
 }
 
