@@ -11,10 +11,10 @@ export async function POST(req: NextRequest) {
     data: {
       assetId,
       status,
-      checklist,
+      checklist: typeof checklist === "string" ? checklist : JSON.stringify(checklist),
       meterValue: typeof meterValue === "number" ? meterValue : null,
       createdBy,
-      photos: photos ?? null,
+      photos: photos ? (typeof photos === "string" ? photos : JSON.stringify(photos)) : null,
     },
   });
   if (typeof meterValue === "number") {
