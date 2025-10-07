@@ -34,8 +34,8 @@ model Inspection {
   assetId    Int
   asset      Asset    @relation(fields: [assetId], references: [id])
   meterValue Int?
-  checklist  Json
-  photos     Json?
+  checklist  String
+  photos     String?
   status     String
   createdBy  String
   createdAt  DateTime @default(now())
