@@ -4,7 +4,11 @@ import InspectionForm from "@/components/InspectionForm";
 export default async function AssetDetail({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   const asset = await prisma.asset.findUnique({ where: { id } });
-  const inspections = await prisma.inspection.findMany({ where: { assetId: id }, orderBy: { id: "desc" } });
+  type Inspection = Awaited<ReturnType<typeof prisma.inspection.findMany>>[number];
+  const inspections: Inspection[] = await prisma.inspection.findMany({
+    where: { assetId: id },
+    orderBy: { id: "desc" },
+  });
 
   if (!asset) return <div>Actif introuvable.</div>;
 
@@ -25,11 +29,11 @@ export default async function AssetDetail({ params }: { params: { id: string } }
       <section className="grid">
         <h3 style={{fontWeight:600}}>Historique des inspections</h3>
         <div className="grid">
-          {inspections.map((i) => (
-            <div key={i.id} className="card" style={{fontSize:14}}>
-              <div className="small">{new Date(i.createdAt).toLocaleString()}</div>
-              <div>Statut: {i.status}</div>
-              {i.meterValue !== null && <div>Compteur: {i.meterValue}</div>}
+          {inspections.map((inspection: Inspection) => (
+            <div key={inspection.id} className="card" style={{fontSize:14}}>
+              <div className="small">{new Date(inspection.createdAt).toLocaleString()}</div>
+              <div>Statut: {inspection.status}</div>
+              {inspection.meterValue !== null && <div>Compteur: {inspection.meterValue}</div>}
             </div>
           ))}
         </div>
